@@ -1,0 +1,1 @@
+{"aqi": {"min": 58.917, "median": 181.75, "max": 459.333}, "ev_share": {"min": 0.025, "median": 0.055, "max": 0.105}, "cng_share": {"min": 0.077, "median": 0.119, "max": 0.137}, "log_vkt": {"min": 22.152, "median": 22.254, "max": 22.306}, "block_avg_pred": 22.75, "full_r2": 0.998}

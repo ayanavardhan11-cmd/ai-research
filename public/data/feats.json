@@ -1,0 +1,1 @@
+{"features": ["lat", "lon", "dist_center_km", "n_cells", "charger_dist_km", "doy", "dow", "month", "is_weekend", "sin_doy", "cos_doy", "aqi", "ev_share", "cng_share", "log_vkt"]}
