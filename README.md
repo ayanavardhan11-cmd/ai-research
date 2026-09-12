@@ -118,6 +118,33 @@ Compare puts any two cities side-by-side with live deltas in annual CO₂, block
 
 ---
 
+## 📊 Results — detailed reading of every figure
+
+### The emission pictures
+- **fig01 · Emission map.** A top-down map of Delhi where each of the 264 blocks is coloured on the teal→red ramp by annual road CO₂. The blocks sum to **2.19 Mt/yr** and the three hottest emit **28.1 / 27.1 / 26.3 kt/yr**, all central. *Inference:* emissions are spatially concentrated, so a few central blocks give outsized gains.
+- **fig02 · 3D surface.** The same grid as an elevation surface (height = emissions), showing one compact high-emission ridge in the core rather than scattered peaks. *Inference:* confirms concentration in a presentable form.
+- **fig03 · 4D scatter.** Longitude × latitude × month, colour = intensity. Emissions cluster in space **and** rise in winter. *Inference:* the hotspot is persistent across the year, not a one-month artefact.
+- **fig04 · Monthly CO₂ by year.** Climate TRACE monthly totals 2021–2026, rising year over year. *Inference:* the baseline is growing, so the optimizer must beat a moving target.
+
+### Model diagnostics
+- **fig05 · Seasonality vs AQI.** Two lines over 12 months: mean block emissions and mean AQI. Emissions peak **Dec (24.8 t/day)** and dip **May (17.9 t/day)**. *Inference:* a clear seasonal cycle the model can exploit.
+- **fig06 · AQI correlation.** Scatter of emissions vs AQI, r = **0.046**. *Inference:* essentially no linear relationship — city AQI is a weak proxy for block CO₂, reported honestly rather than inflated.
+- **fig07 · Cross-validation R².** Six bars: random 0.785, spatial E→W 0.604, spatial W→E 0.635, temporal H1→H2 0.974, temporal H2→H1 0.969, spatio-temporal 0.586. *Inference:* temporal generalization is excellent; spatial (unseen districts) is the honest, harder number (~0.6) — the key credibility figure.
+- **fig08 · Predicted vs observed.** Scatter hugging the diagonal, full-model R² = **0.998**. *Inference:* in-sample the model reproduces real emissions almost exactly (fig07 shows out-of-sample truth).
+
+### Interpretability
+- **fig09 · SHAP importance.** Bars ordered n_cells > dist_center_km > lat > lon > charger_dist_km > cos_doy. *Inference:* urban structure and traffic volume drive predictions far more than fleet mix — supports RQ2.
+- **fig10 · SHAP beeswarm.** Per-sample SHAP clouds; n_cells shows the widest, highest-magnitude spread. *Inference:* the effect is real and variable, not a single outlier.
+- **fig11 · SHAP dependence (distance to centre).** Emissions fall with distance from centre; colour (zone size) confounds the tail. *Inference:* the centre is high-emission partly because it holds bigger, busier zones.
+
+### Optimization & planning
+- **fig12 · Charger budgets.** Delhi map with optimized sites per budget. *Inference:* the MILP always fills the high-emission core first as budget grows.
+- **fig13 · Abatement vs budget.** Curve with real benchmarks 5/10/20/30 sites → 43/82/154/220 kt/yr. *Inference:* strong but diminishing marginal returns — the first sites are the most valuable.
+- **fig14 · Roadmap 2030.** Grey baseline vs teal abated bars + amber % line, reaching **≈31%** by 2030 at defaults. *Inference:* the achievable decarbonization path and its sensitivity to grid cleanliness and EV adoption.
+
+### Context
+- **fig15 · Fleet composition.** Stacked real VAHAN registrations with a violet EV line; EV share still small. *Inference:* keeps adoption claims modest and grounds the roadmap's EV ceiling in reality.
+
 ## 📈 Model performance (real, `public/data/metrics.json`)
 
 | Validation scheme | R² | MAE (t/day) |
